@@ -28,7 +28,7 @@ The crash files are located in a tree with two branches: the name or "index" bra
 * The date branch consists of paths based on the year, month, day, hour, minute-segment, webhead host name and a small sequence number. For each uuid, it holds a relative symbolic link referring to the actual name directory holding the data for that uuid. For the uuid above, submitted at 2008-09-30T12:05 from webhead01
     * The symbolic link is stored as %(root)s/date/2008/09/30/12/05/webhead01_0/22adfb61-f75b-11dc-b6be-001321b0783d and references (own location)/%(toNameFromDate)s/22/ad/fb/61/
 
-* Note (name layout) In the examples on this page, the name/index branch uses the first 4 characters of the uuid as two character-pairs naming subdirectories. This is a configurable setting called storageDepth in the SocorroCollector configuration. To use the 8 characters, storageDepth is set to 4. To use 6 characters, set to 3. The default storageDepth is 2 because on our system, with (approximately) 64K leaf directories, the number of files per leaf is reasonable; and the number of inodes required by directory entries is not so large as to cause undue difficulty. A storageDepth of 4 was examined, and was found to crash the file system by requiring too many inodes.
+* Note (name layout) In the examples on this page, the name/index branch uses the first 4 characters of the uuid as two character-pairs naming subdirectories. This is a configurable setting called storageDepth in the :ref:`collector-chapter` configuration. To use the 8 characters, storageDepth is set to 4. To use 6 characters, set to 3. The default storageDepth is 2 because on our system, with (approximately) 64K leaf directories, the number of files per leaf is reasonable; and the number of inodes required by directory entries is not so large as to cause undue difficulty. A storageDepth of 4 was examined, and was found to crash the file system by requiring too many inodes.
 
 * If the uuids are such that their initial few characters are well spread among all possibles, then the lookup can be very quick. If the first few characters of the uuids are not well distributed, the resulting directories may be very large. If, despite well chosen uuids, the leaf name directories become too large, it would be simple to add another level, reducing the number of files by approximately a factor of 256; however bear in mind the issue of inodes.
 
@@ -40,7 +40,7 @@ How it's used
 -------------
 
 We use the file system storage for incoming dumps caught by
-SocorroCollector. There are two instances of the file system used for
+:ref:`collector-chapter`. There are two instances of the file system used for
 different purposes: standard storage and deferred storage.
 
 
@@ -48,13 +48,13 @@ different purposes: standard storage and deferred storage.
 ----------------------
 
 This is where json/dump pairs are stored for further processing. The
-SocorroMonitor finds new dumps and queues them for processing. It does
+[[SocorroMonitor]] finds new dumps and queues them for processing. It does
 this by walking the date branch of the file system using the API
 function destructiveDateWalk. As it moves through the date branch, it
 notes every uuid (in the form of a symbolic link) that it encounters.
 It queues the information from the symbolic link and then deletes the
 symbolic link. This insures that it only ever finds new entries.
-Later, the SocorroProcessor will read the json/dump pair by doing a
+Later, the :ref:`processor-chapter` will read the json/dump pair by doing a
 direct lookup of the uuid on the name branch.
 
 In the case of priority processing, the target uuid is looked up
@@ -66,7 +66,7 @@ priority job is not found a second time as a new job by the
 [[DeferredJobStorage]]
 ----------------------
 
-This is where jobs go that are deferred by SocorroMonitor's throttling
+This is where jobs go that are deferred by [[SocorroMonitor]]'s throttling
 mechanism. If a json/dump pair is needed for priority processing, it
 can be looked up directly on the name branch. In such a case, just as
 with priority jobs in standard storage, we destroy the links between

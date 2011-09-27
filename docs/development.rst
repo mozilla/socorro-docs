@@ -9,6 +9,8 @@ Development Discussions
    :maxdepth: 2
 
    codingconventions
+   glossary
+   unittesting
    crashreprofilteringreport
    databasepartitioning
    diskperformancetests
@@ -17,3 +19,6 @@ Development Discussions
    processeddumpstorage
    reportdatabasedesign
    codeanddatabaseupdate
+   databaseschema
+   package
+   schema

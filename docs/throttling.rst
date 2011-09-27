@@ -5,20 +5,20 @@
 Throttling
 ==========
 
-The SocorroCollector has the ability to vet crashes as the come into
+The :ref:`collector-chapter` has the ability to vet crashes as the come into
 the system. Originally, this system was used to provide a statistical
 sampling from the incoming stream of crashes. In 1.8, throttling is a
 way to allow a sampling of crashes to be put into the database.
 
 Throttling, the disposition of a JSON/dump pair, is controlled by the
 contents of the JSON file. The JSON files are collections of keys and
-values. SocorroCollector can examine these key/value pairs and assign
+values. :ref:`collector-chapter` can examine these key/value pairs and assign
 a pass through probability. For example we may want to pass 100% of
 all alpha or beta releases to the database. In production, however, we
 may want to only save 10%.
 
 For details on how to configure throtttling, see the configuration
-section of SocorroCollector. Below is a section about the collector
+section of :ref:`collector-chapter`. Below is a section about the collector
 throttling rules.
 
 

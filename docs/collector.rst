@@ -20,7 +20,7 @@ storage mechanism. A second file system can be configured to take the
 failed saves. This file system would likely be an NFS mounted file
 system.
 
-After a crash is saved, there is an app called SocorroCrashMover that
+After a crash is saved, there is an app called [[SocorroCrashMover]] that
 will transfer the crashes to HBase.
 
 

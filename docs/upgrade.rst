@@ -224,7 +224,7 @@ Configuration file changes:
 Collector
 ---------
 
-The [[SocorroCollector]] can now use either the local file system as its
+The :ref:`collector-chapter` can now use either the local file system as its
 primary storage or submit directly to hbase. There are also mod-python
 and mod-wsgi based collector versions.
 
@@ -233,7 +233,7 @@ The mod-python collector is found at
 copied to the mod-python directory and renamed 'collector.py'
 
 More information and details on the configuration file can be found at
-SocorroCollector. Start by getting the
+:ref:`collector-chapter`. Start by getting the
 '.../scripts/config/commonconfig.py.dist' and
 '.../scripts/config/collectorconfig.py.dist' and diff them with your
 current configs. Make changes as necessary.
