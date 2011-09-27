@@ -10,20 +10,20 @@ Socorro Wish List
 -----------------
 
 One of my (griswolf) directives is approximately "make everything work
-efficiently and the same." Toward this end, there are several tasks:  
+efficiently and the same." Toward this end, there are several tasks:
 
 Probably most important, we have an inefficient database design, and
-some inefficient code working with it.    
+some inefficient code working with it.
 
 Next, we have a collection of 'one-off' code (and database schemas)
 that could be more easily maintained using a common infrastructure,
-common coding conventions, common schema layout, common patterns.    
+common coding conventions, common schema layout, common patterns.
 
 Finally, we have enhancement requests that would become more feasible
 after such changes: Such requests would be more easily handled in a
 cleaner programming environment; and in a cleaner environment there
 might be fewer significant bugs, leaving more time to work on
-enhancements.       
+enhancements.
 
 Current state: See [[SocorroDatabaseSchema]]
 
@@ -38,7 +38,7 @@ MapReduce techniques, which could possibly be run external to Mozilla
 (for instance: Amazon Web Services) could be used to mine dump files
 and create statistical data stored in files or database. Lars
 mentioned to me that we now have some statistics folk on board who are
-interested in this.         
+interested in this.
 
 
 Database Design
@@ -184,7 +184,7 @@ New product_visibility table (soon, matview)::
   id serial NOT NULL PRIMARY KEY,
   productdims_id integer not null,
   start_date timestamp, -- used by MTBF
-  end_date timestamp, 
+  end_date timestamp,
   ignore boolean default False -- force aggregation off for this product id
 
 New osdims table (soon, matview) NOTE: Data available only if
@@ -202,8 +202,8 @@ products is under discussion::
   CREATE TYPE release_enum AS ENUM ('major', 'milestone', 'development');
  table productdims (
   id serial NOT NULL PRIMARY KEY,
-  product TEXT NOT NULL, 
-  version TEXT NOT NULL, 
+  product TEXT NOT NULL,
+  version TEXT NOT NULL,
   release release_enum NOT NULL,
   constraint productdims_key (product, version) unique ( product, version )
   );
@@ -296,7 +296,7 @@ New crash_reports table (later, raw view) Replaces reports table::
   productdims_id INTEGER, -- /new/ foreign key NOTE Filtered by recent frequency
   osdims_id INTEGER, -- /new/ foreign key NOTE Filtered by recent frequency
   urldims_id INTEGER -- /new/ foreign key NOTE Filtered by recent frequency
-  -- /remove - see productdims_id/ - product character varying(30), 
+  -- /remove - see productdims_id/ - product character varying(30),
   -- /remove - see productdims_id/ version character varying(16),
   -- /remove - redundant with build_date/ -- build character varying(30),
   -- /remove - see urldims_id/ url character varying(255),
@@ -366,5 +366,4 @@ Tables with Minor Changes: varchar->text::
   uuid TEXT NOT NULL, -- /was/ character varying(50)
   comments TEXT, -- /was/ character varying(500)
   topcrashurlfacts_id integer
-  );        
-  
+  );

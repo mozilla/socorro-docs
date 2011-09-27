@@ -7,11 +7,11 @@ JSON Dump Storage
 =================
 
 What this system offers
-----------------------
+-----------------------
 
 Crash data is stored so that it can be quickly located based on a
 Universally Unique Identifier (uuid) or visited by the date and time
-when reported       
+when reported
 
 Directory Structure
 -------------------
@@ -41,11 +41,11 @@ How it's used
 
 We use the file system storage for incoming dumps caught by
 SocorroCollector. There are two instances of the file system used for
-different purposes: standard storage and deferred storage.     
+different purposes: standard storage and deferred storage.
 
 
 [[StandardJobStorage]]
-------------------
+----------------------
 
 This is where json/dump pairs are stored for further processing. The
 SocorroMonitor finds new dumps and queues them for processing. It does
@@ -55,16 +55,16 @@ notes every uuid (in the form of a symbolic link) that it encounters.
 It queues the information from the symbolic link and then deletes the
 symbolic link. This insures that it only ever finds new entries.
 Later, the SocorroProcessor will read the json/dump pair by doing a
-direct lookup of the uuid on the name branch.         
+direct lookup of the uuid on the name branch.
 
 In the case of priority processing, the target uuid is looked up
 directly on the name branch. Then the link to the date branch is used
 to locate and delete the link on the date branch. This insures that a
 priority job is not found a second time as a new job by the
-[[SocorroMonitor]].    
+[[SocorroMonitor]].
 
 [[DeferredJobStorage]]
-------------------
+----------------------
 
 This is where jobs go that are deferred by SocorroMonitor's throttling
 mechanism. If a json/dump pair is needed for priority processing, it
@@ -77,22 +77,22 @@ When it comes time to drop old json/dump pairs that are no longer
 needed within the deferred storage, the system is given a date
 threshold. It walks the appropriate parts of the date branch older
 than the threshold. It uses the links to the name branch to blow away
-the elderly json/dump pairs.     
+the elderly json/dump pairs.
 
 
 class JsonDumpStorage
 ---------------------
 
 `socorro.lib.JsonDumpStorage` holds data and implements methods for
-creating and accessing crash files.    
+creating and accessing crash files.
 
 **public methods**
 
 * `__init__(self, root=".", maxDirectoryEntries=1024, **kwargs)`
-  
+
   Take note of our root directory, maximum allowed date->name links per directory, some relative relations, and whatever else we may need. Much of this (c|sh)ould be read from a config file.
 
-        Recognized keyword args: 
+        Recognized keyword args:
 
         * dateName. Default = 'date'
         * indexName. Default = 'name'
@@ -100,7 +100,7 @@ creating and accessing crash files.
         * dumpSuffix. Default = '.dump'. If not startswith('.') then '.' is prepended
         * dumpPermissions. Default 660
         * dirPermissions. Default 770
-        * dumpGID. Default None. If None, then owned by the owner of the running script. 
+        * dumpGID. Default None. If None, then owned by the owner of the running script.
 
 * `newEntry (self, uuid, webheadHostName='webhead01', timestamp=DT.datetime.now())`
 
@@ -114,15 +114,15 @@ creating and accessing crash files.
 
 * `getJson (self, uuid)`
 
-    Returns an absolute pathname for the json file for a given uuid. Raises OSError if the file is missing 
+    Returns an absolute pathname for the json file for a given uuid. Raises OSError if the file is missing
 
 * `getDump (self, uuid)`
 
-    Returns an absolute pathname for the dump file for a given uuid. Raises OSError if the file is missing 
+    Returns an absolute pathname for the dump file for a given uuid. Raises OSError if the file is missing
 
 * `markAsSeen (self,uuid)`
 
-    Removes the links associated with the two data files for this uuid, thus marking them as seen. Quietly returns if the uuid has no associated links. 
+    Removes the links associated with the two data files for this uuid, thus marking them as seen. Quietly returns if the uuid has no associated links.
 
 * `destructiveDateWalk (self)`
 
@@ -131,30 +131,30 @@ creating and accessing crash files.
         Just before yielding a value, it deletes both the links (from date to name and from name to date)
         After visiting all the uuids in a given date branch, recursively deletes any empty subdirectories in the date branch
         Since the file system may be manipulated in a different thread, if no .json or .dump file is found, the links are left, and we do not yield that uuid
-        note To avoid race conditions, does not visit the date subdirectory corresponding to the current time 
+        note To avoid race conditions, does not visit the date subdirectory corresponding to the current time
 
 * `remove (self, uuid)`
 
     Removes all instances of the uuid from the file system including the json file, the dump file, and the two links if they still exist.
 
-       * Ignores missing link, json and dump files: You may call it with bogus data, though of course you should not 
+       * Ignores missing link, json and dump files: You may call it with bogus data, though of course you should not
 
 * `move (self, uuid, newAbsolutePath)`
 
     Moves the json file then the dump file to newAbsolutePath.
 
         * Removes associated symbolic links if they still exist.
-        * Raises IOError if either the json or dump file for the uuid is not found, and retains any links, but does not roll back the json file if the dump file is not found. 
+        * Raises IOError if either the json or dump file for the uuid is not found, and retains any links, but does not roll back the json file if the dump file is not found.
 
 * `removeOlderThan (self, timestamp)`
 
       * Walks the date branch removing all entries strictly older than the timestamp.
-      * Removes the corresponding entries in the name branch. 
+      * Removes the corresponding entries in the name branch.
 
 **member data**
 
 Most of the member data are set in the constructor, a few are
-constants, the rest are simple calculations based on the others. 
+constants, the rest are simple calculations based on the others.
 
 * root: The directory that holds both the date and index(name) subdirectories
 * maxDirectoryEntries: The maximum number of links in each webhead directory on the date branch. Default = 1024
@@ -171,4 +171,3 @@ constants, the rest are simple calculations based on the others.
 * toDateFromName: The relative path from a leaf of the nameBranch to the dateBranch
 * minutesPerSlot: How many minutes in each sub-hour slot. Default = 5
 * slotRange: A precalculated range of slot edges = range(self.minutesPerSlot, 60, self.minutesPerSlot)
-    

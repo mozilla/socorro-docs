@@ -12,28 +12,28 @@ Populate the Database
 ---------------------
 
 Socorro supports multiple products, each of which may contain multiple
-versions. 
+versions.
 
 * A product is a global product name, such as Firefox, Thunderbird,
-  Fennec, etc. 
+  Fennec, etc.
 * A version is a revision of a particular product, such as Firefox
-  3.6.6 or Firefox 3.6.5 
+  3.6.6 or Firefox 3.6.5
 * A branch is the indicator for the Gecko platform used in a Mozilla
   product / version. If your crash reporting project does not have a
   need for branch support, just enter "1.0" as the branch number for
-  your product / version.   
+  your product / version.
 
 To start, add a product and version to your database. To enter your
 first product into the database, simply write an Insert statement for
 your database, such as::
 
- INSERT INTO productdims (product, version, branch) 
+ INSERT INTO productdims (product, version, branch)
  VALUES ('Firefox', '3.6.5', '2.0');
 
 Then add an entry to the product_visibility table, which will depict
 the date range for which your product is valid.::
 
- INSERT INTO product_visibility (productdims_id, start_date, end_date, featured) 
+ INSERT INTO product_visibility (productdims_id, start_date, end_date, featured)
  VALUES (1, '2010-11-05', '2011-02-05', true);
 
 Create the sessions table for Kohana::
@@ -51,7 +51,7 @@ Apache
 
 Set up Apache with a vhost as you see fit. You will either need
 AllowOverride to enable .htaccess files or you may paste the .htaccess
-rules into your vhost. 
+rules into your vhost.
 
 Subversion Checkout
 -------------------
@@ -66,7 +66,7 @@ KohanaPHP Installation
 1. Copy .htaccess file and edit the host path if your webapp is not at
    the domain root.::
 
-     cp htaccess-dist .htaccess 
+     cp htaccess-dist .htaccess
      vim .htaccess
 
 2. Copy application/config/config.php-dist and change the hosting path
@@ -76,7 +76,7 @@ KohanaPHP Installation
     vim application/config/config.php
 
 For a production install, you may want to set
-$config['display_errors'] to FALSE. 
+$config['display_errors'] to FALSE.
 
 3. Copy application/config/database.php and edit its database
    settings.::
@@ -159,7 +159,7 @@ Web Services
 ------------
 
 Many parts of Socorro UI rely on web services provided by the
-Python-based middleware layer.  
+Python-based middleware layer.
 
 Middleware
 ----------
@@ -192,7 +192,7 @@ Search
 Visit the website containing the Socorro UI, and click Advanced
 Search. Perform a search for the product you've added to the site,
 which you know have crash reports associated with it in the reports
-table in your database. 
+table in your database.
 
 
 Report
@@ -201,4 +201,4 @@ Report
 Within the search results set you received, click a signature in the
 results set. Next click the timestamp for a particular signature,
 which will take you to a page that displays an individual crash
-report. 
+report.

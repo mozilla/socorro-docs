@@ -12,14 +12,14 @@ Introduction
 Any DBMS for a database which is larger than memory can be no faster
 than disk speed. This document outlines a series of tests for testing
 disk speed to determine if you have an issue. Written originally by
-PostgreSQL Experts Inc. for Mozilla.    
+PostgreSQL Experts Inc. for Mozilla.
 
 Running Tests
 -------------
 
 Note: all of the below require you to have plenty of disk space
 available. And their figures are only reliable if nothing else is
-running on the system.    
+running on the system.
 
 
 **Simplest Test: The DD Test**
@@ -28,11 +28,11 @@ This test measures the most basic single-threaded disk access: a large
 sequential write, followed by a large sequential read. It is relevant
 to database performance because it gives you a maximum speed for
 sequential scans for large tables. Real table scans are generally
-about 30% of this maximum.     
+about 30% of this maximum.
 
 dd is a Unix command line utility which simply writes to a block
 device. We use it for this 3-step test. The other thing you need to
-know for this test is your RAM size.   
+know for this test is your RAM size.
 
 1. We create a large file which is 2x the size of RAM, and synch it to
    disk. This makes sure that we get the real sustained write rate,
@@ -45,8 +45,8 @@ know for this test is your RAM size.
    dd will report a time and write rate to us, and "time" will report
    a larger time. The time and rate reported by dd represents the rate
    without any lag or synch time; divide the data size by the time
-   reported by "time" for synchronous file writing rate.    
-   
+   reported by "time" for synchronous file writing rate.
+
 2. Next we want to write another large file, this one the size of RAM,
    in order to flush out the FS cache so that we can read directly
    from disk later.::
@@ -59,7 +59,7 @@ know for this test is your RAM size.
         time dd if=ddfile of=/dev/null bs=8k
 
 This time, "time" and dd will be very close together; any difference
-will be strictly storage lag time.  
+will be strictly storage lag time.
 
 
 Bonnie++
@@ -71,7 +71,7 @@ operations. For a modern system, you want to use the last version,
 1.95, downloaded from http://www.coker.com.au/bonnie++/experimental/
 This final version of bonnie++ supports concurrency and measures lag
 time. However, it is not available in package form in most OSes, so
-you'll have to compile it using g++.       
+you'll have to compile it using g++.
 
 Again, for Mozilla we want to test performance for a database which is
 larger than RAM, since that's what we have. Therefore, we're going to
@@ -93,32 +93,32 @@ The results we get back look something like this::
  tm-breakpad01-maste -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
                files  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP /sec %CP
                  100 44410  75 +++++ +++ 72407  81 45787  77 +++++ +++ 63167  72
- Latency              9957us     477us     533us     649us      93us 552us 
+ Latency              9957us     477us     533us     649us      93us 552us
 
 So, the interesting parts of this are:
 
 Sequential Output: Block: this is sequential writes like dd does. It's
-70MB/s. 
+70MB/s.
 
 Sequential Input: Block: this is sequential reads from disk. It's
-57MB/s. 
+57MB/s.
 
 Sequential Output: Rewrite: is reading, then writing, a file which has
 been flushed to disk. This rate will be lower than either of the
-above, and is at 30MB/s.   
+above, and is at 30MB/s.
 
 Random: Seeks: this is how many individual blocks Bonnie can seek to
-per second; it's a fast 262. 
+per second; it's a fast 262.
 
 Latency: this is the full round-trip lag time for the mentioned
 operation. On this platform, these times are catastrophically bad; 1/4
 second round-trip to return a single random block, and 3/4 seconds to
-return the start of a large file.    
+return the start of a large file.
 
 The figures on file creations and deletion are generally less
 interesting to databases. The +++++ are for runs that were so fast the
 error margin makes the figures meaningless; for better figures,
-increase -n.   
+increase -n.
 
 IOZone
 ------
@@ -129,7 +129,7 @@ Iozone. Iozone is a benchmark mostly know for creating pretty graphs
 file, batch, and block sizes. However, this kind of comprehensize
 profiling is completely unnecessary for a DBMS, where we already know
 the file access pattern, and can take up to 4 days to run. So do not
-run Iozone in automated (-a) mode!   
+run Iozone in automated (-a) mode!
 
 Instead, run a limited test. This test will still take several hours
 to run, but will return a more limited set of relevant results. Run
@@ -143,7 +143,7 @@ random-read/write, read-backwards, re-write-record, stride-read,
 random mix. It does these tests using 6 concurrent processes, a block
 size of 8k (Postgres' block size) for 4G files named f1 to f6. The
 aggregate size of the files is 24G, so that they won't all fit in
-memory at once.      
+memory at once.
 
 In theory, the relevance of these tests to database activity is the
 following:
@@ -166,7 +166,7 @@ The results you get will look like this::
 
         Children see throughput for  6 initial writers  =  108042.81 KB/sec
         Parent sees throughput for  6 initial writers   =   31770.90 KB/sec
-        Min throughput per process                      =   13815.83 KB/sec 
+        Min throughput per process                      =   13815.83 KB/sec
         Max throughput per process                      =   35004.07 KB/sec
         Avg throughput per process                      =   18007.13 KB/sec
         Min xfer                                        = 1655408.00 KB
@@ -180,4 +180,4 @@ Note: IOZone appears to have several bugs, and places where its
 documentation and actual features don't match. Particularly, it
 appears to have locking issues in concurrent access mode for some
 writing activity so that concurrency throughput may be lower than
-actual. 
+actual.

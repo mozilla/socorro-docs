@@ -18,8 +18,8 @@ show users an outage page during the maintenance period
 * backup webapp-php/index.php
 * You can copy webapp-php/docs/outage.php over
   webapp-php/index.php and all traffic will be served this outage
-  message. 
+  message.
 * Do work
-* copy backup over webapp-php/index.php 
-	
+* copy backup over webapp-php/index.php
+
 **add other task instructions here**

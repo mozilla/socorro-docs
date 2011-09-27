@@ -7,21 +7,21 @@ Collector
 
 Collector is an application that runs under Apache using mod-python.
 Its task is accepting crash reports from remote clients and saving
-them in a place and format usable by further applications. 
+them in a place and format usable by further applications.
 
 Raw crashes are accepted via HTTP POST. The form data from the POST is
 then arranged into a JSON and saved into the local file system. The
 collector is responsible for assigning an ooid? (Our Own ID) to the
 crash. It also assigns a Throttle? value which determines if the crash
-is eventually to go into the relational database.     
+is eventually to go into the relational database.
 
 Should the saving to a local file system fail, there is a fallback
 storage mechanism. A second file system can be configured to take the
 failed saves. This file system would likely be an NFS mounted file
-system.    
+system.
 
 After a crash is saved, there is an app called SocorroCrashMover that
-will transfer the crashes to HBase. 
+will transfer the crashes to HBase.
 
 
 Server Requirements
@@ -31,7 +31,7 @@ Server Requirements
 * Python 2.4
 * mod-python
 * python simplejson package
-* socorro package installed 
+* socorro package installed
 
 Collector Python Configuration
 ------------------------------
@@ -42,7 +42,7 @@ collector
 
 * Copy `.../scripts/config/commonconfig.py.dist` to
   `.../config/commonconfig.py`. This configuration file contains
-  constants used by many of the Socorro applications.  
+  constants used by many of the Socorro applications.
 * Copy `.../scripts/config/collectorconfig.py.dist` to
   `.../config/collectorconfig.py`
 
@@ -51,7 +51,7 @@ Common Configuration
 
 There are two constants in '.../scripts/config/commonconfig.py' of
 interest to collector: `jsonFileSuffix`, and `dumpFileSuffix`. Other
-constants in this file are ignored.  
+constants in this file are ignored.
 
 To setup the common configuration, see [[SocorroCommonConfig]].
 

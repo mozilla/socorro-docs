@@ -27,7 +27,7 @@ but the value in production will be different. However, the "%s" at
 the end is required. Inquire with the Metrics team for the production
 URL. It is likely that the hardware to support ES will not be in place
 until 2011-06-29, so until Metrics can provide the proper URL, this
-value should be the empty string "".        
+value should be the empty string "".
 
 Middleware
 ----------
@@ -44,14 +44,14 @@ Web App
 
 There is a key in webserviceclient.php-dist that is called
 'middleware_implementation' that should be overridden to be "PG" as we
-are using Postgres for this release.  
+are using Postgres for this release.
 
 PostgreSQL
 ----------
 
 As usual, run 'scripts/upgrade/2.0/upgrade.sh'
 
-This can be run either before or after the code deployment. 
+This can be run either before or after the code deployment.
 
 Socorro 1.7.8
 =============
@@ -61,12 +61,12 @@ Postgres Database
 
 As usual, run scripts/upgrade/1.7.8/upgrade.sh.
 
-This time, the upgrade script for Dev and for Prod are the same. 
+This time, the upgrade script for Dev and for Prod are the same.
 
 Note that pgbouncer_processor_pool.py can't really be run at
 production time as it requires an interruption in service. It also
 must be run as root. Therefore it's supplied by commented out. At
-Mozilla, it has already been installed in prod. 
+Mozilla, it has already been installed in prod.
 
 
 Socorro 1.7.7
@@ -81,7 +81,7 @@ Config
 
 2. change to the webapi config file:
 
- cp scripts/config/webapiconfig.py.dist scripts/config/webapiconfig.py 
+ cp scripts/config/webapiconfig.py.dist scripts/config/webapiconfig.py
 
 Web App
 -------
@@ -117,16 +117,16 @@ No changes for this version.
 
 We are now using the CITEXT, or "case insensitive text" data type. As
 such, this will need to be loaded into the PostgreSQL database prior
-to any of the database migration scripts.   
+to any of the database migration scripts.
 
 1. On the MASTER database server, su to the "postgres" shell user.
-2. psql -f /usr/pgsql-9.0/share/contrib/citext.sql breakpad 
+2. psql -f /usr/pgsql-9.0/share/contrib/citext.sql breakpad
 
 **plperl**
 
 We are now using perl as a stored procedure language (in addition to
 plpgsql). Before running any of the migrations, it needs to be loaded
-into the database.  
+into the database.
 
 1. On the MASTER database server, su to the "postgres" shell user.
 2. createlang plperl breakpad
@@ -136,7 +136,7 @@ Migration Scripts
 
 Unlike other upgrades, all SQL migration scripts for this upgrade are
 checked into subversion. They are located at /scripts/upgrade/1.7.7/,
-here: 
+here:
 http://code.google.com/p/socorro/source/browse/#svn%2Ftrunk%2Fscripts%2Fupgrade%2F1.7.7
 
 Further, several of these migration scripts take minutes to hours to
@@ -158,20 +158,20 @@ Creates new tokenize_version function. Should run in seconds. Requires plperl.
 Fixes some longstanding data type issues with the productdims and
 builds tables. Creates functions and dimension tables to make version
 numbers sortable. Should run in less than a minute. Requires exclusive
-locks on a few tables, so if it hangs, cancel and start over.   
+locks on a few tables, so if it hangs, cancel and start over.
 
 **first_report_migration.sql**
 
 Creates and backfills several materialized view tables summarizing
 "first appearance of signature" information. Will take a couple hours
-to run.  
+to run.
 
 As soon as this migration completes, the update_signature_matviews cron job should be enabled.
 
 **find_dups.sql**
 
 Creates tables and functions to support finding possible duplicate
-reports. Should only take a couple minutes to run. 
+reports. Should only take a couple minutes to run.
 
 **backfill_dups.sql**
 
@@ -184,20 +184,20 @@ is expected to take up to 8 hours.
 2. subtract 3 hours (example: '2011-03-07 12:30:00' )
 3. run the following query: SELECT backfill_all_dups ( '2011-01-01', '2011-03-07 12:30:00' ). This will take 4-6 hours.
 4. when it completes, backfill the gap: SELECT backfill_all_dups ( '2011-03-07 12:30:00', current_timestamp - interval '3 hours' );
-5. when that completes, immediately enable the "find dups" cron job. 
+5. when that completes, immediately enable the "find dups" cron job.
 
 **new_reason_index.sql**
 
 Adds an index on the "reason" column to all reports partitions. Will
-take several hours to run. 
+take several hours to run.
 
 This script has no dependancies on the others. As such, it could be
-run either before or after them.  
+run either before or after them.
 
 **postcrash_email.sql**
 
 Adds a new status column to the email_campaigns and
-email_campaigns_contacts tables, to support bug 630350. 
+email_campaigns_contacts tables, to support bug 630350.
 
 Socorro 1.7.6
 =============
@@ -205,11 +205,11 @@ Socorro 1.7.6
 There are numerous changes to the system for this release. For each of
 the changes outlined below, it is assumed that the python codebase has
 been updated to the latest 1.7.6 release. All the Python apps are
-expecting to run under Python 2.4.   
+expecting to run under Python 2.4.
 
 Throughout the system, rotating file logging has been eschewed for
 syslogging instead. This change affects every nearly Python
-configuration file in the system.  
+configuration file in the system.
 
 commonconfig.py
 ---------------
@@ -219,7 +219,7 @@ See [[SocorroCommonConfig]] for details
 Configuration file changes:
 
 * any mention of the parameter crashStorageClass has been removed
-* the entire NFS storage system section has been removed 
+* the entire NFS storage system section has been removed
 
 Collector
 ---------
@@ -236,13 +236,13 @@ More information and details on the configuration file can be found at
 SocorroCollector. Start by getting the
 '.../scripts/config/commonconfig.py.dist' and
 '.../scripts/config/collectorconfig.py.dist' and diff them with your
-current configs. Make changes as necessary.     
+current configs. Make changes as necessary.
 
 Configuration file changes:
 
 * there are new parameters for local storage. If you're using local
   disk for primary crash storage use the values formerly used for
-  fallback storage here.   
+  fallback storage here.
 * the fallbackFS should now be configured for an NFS mount or other
   local storage to be used in emergencies.
 * the logger section no longer has the logFile parameters, they are
@@ -251,13 +251,13 @@ Configuration file changes:
 Start your new collector and pass it some sample crashes. Tail your
 syslog, grepping for 'Socorro Collector' to watch it work. You should
 see it echo its configuration and then echo ooids as it accepts
-crashes.  
+crashes.
 
 newCrashMover
 -------------
 
 This is a new app that replaces the hbaseResubmit.py from the previous
-releases in this series.  
+releases in this series.
 
 For information regarding the configuration, see [[SocorroCrashMover]].
 
@@ -269,7 +269,7 @@ Configuration file changes:
 * import of crashStorageClass from commonconfig has been removed
 * the entire NFS storage system section has been removed
 * the logger section no longer has the logFile parameters, they are
-  replaced with syslog parameters. 
+  replaced with syslog parameters.
 
 Processor
 ---------
@@ -319,21 +319,21 @@ Cron: startDailyUrl
 
 The only change to this application is the removal of the rotating
 file logging and the addition of the syslogging. Update the
-configuration from '.../scripts/config/dailyurlconfig.py.dist' 
+configuration from '.../scripts/config/dailyurlconfig.py.dist'
 
 Cron: startServerStatus
 -----------------------
 
 The only change to this application is the removal of the rotating
 file logging and the addition of the syslogging. Update the
-configuration from '.../scripts/config/serverstatusconfig.py.dist'  
+configuration from '.../scripts/config/serverstatusconfig.py.dist'
 
 Cron: startTopCrashesByUrl
 --------------------------
 
 The only change to this application is the removal of the rotating
 file logging and the addition of the syslogging. Update the
-configuration from '.../scripts/config/TopCrashesByUrlConfig.py.dist' 
+configuration from '.../scripts/config/TopCrashesByUrlConfig.py.dist'
 
 Cron: startTopCrashesBySignature
 --------------------------------
@@ -341,7 +341,7 @@ Cron: startTopCrashesBySignature
 The only change to this application is the removal of the rotating
 file logging and the addition of the syslogging. Update the
 configuration from
-'.../scripts/config/TopCrashesBySignatureConfig.py.dist' 
+'.../scripts/config/TopCrashesBySignatureConfig.py.dist'
 
 Database
 --------
@@ -366,7 +366,7 @@ Add the following to application/config/application.php::
   * Base URL to which bugs will be submitted.
   */
  $config['report_bug_url'] = 'https://bugzilla.mozilla.org/enter_bug.cgi?';
- 
+
 
 Add the following to application/config/auth.php::
 
@@ -399,14 +399,14 @@ The collector has been reworked to do syslogging.
 Configuration file changes:
 
 * the logger section no longer has the logFile parameters, they are
-  replaced with syslog parameters. 
+  replaced with syslog parameters.
 
 Processor
 ---------
 
 The processor has changed to allow for jobs to be reprocessed. This
 should resolve the stuck job problem. No configuration changes are
-necessary.  
+necessary.
 
 Database
 --------
@@ -414,7 +414,7 @@ Database
 The following database queries will set up the database for the new
 email feature, 2 new cron jobs, shifting session storage from cookies
 to the database, and updates to the top_crashes_by_signatures and
-product_visibility tables.   
+product_visibility tables.
 
 Please note: some of the insert statements may execute in 2 to 3
 minutes of time.::
@@ -457,32 +457,32 @@ minutes of time.::
          email_contacts_id INTEGER REFERENCES email_contacts (id),
          CONSTRAINT email_campaigns_contacts_mapping_unique UNIQUE (email_campaigns_id, email_contacts_id)
      );
- 
+
  CREATE TABLE signature_productdims (
    signature text not null,
    productdims_id integer not null,
-   UNIQUE (signature, productdims_id) 
+   UNIQUE (signature, productdims_id)
  );
- 
+
  INSERT INTO signature_productdims
  SELECT
    tcbs.signature,
    tcbs.productdims_id
-   FROM top_crashes_by_signature tcbs 
+   FROM top_crashes_by_signature tcbs
  WHERE
    tcbs.window_end >= (NOW() - interval '4 weeks')
    AND tcbs.signature IS NOT NULL
- GROUP BY     
+ GROUP BY
    tcbs.signature,
    tcbs.productdims_id
  ;
- 
+
  ALTER TABLE top_crashes_by_signature ADD COLUMN hang_count integer DEFAULT 0;
- 
+
  ALTER TABLE top_crashes_by_signature ADD COLUMN plugin_count integer DEFAULT 0;
- 
+
  ALTER TABLE product_visibility ADD throttle DECIMAL(5,2) DEFAULT 0.00;
- 
+
  UPDATE product_visibility SET throttle = 10.00;
  UPDATE product_visibility SET throttle = 2.00 WHERE productdims_id = (SELECT id
  FROM productdims WHERE product = 'Firefox' AND version = '3.0.15');
@@ -508,7 +508,7 @@ minutes of time.::
  FROM productdims WHERE product = 'Firefox' AND version = '3.5.8');
  UPDATE product_visibility SET throttle = 2.00 WHERE productdims_id = (SELECT id
  FROM productdims WHERE product = 'Firefox' AND version = '3.5.9');
- 
+
  CREATE TABLE sessions (
      session_id varchar(127) NOT NULL,
      last_activity integer NOT NULL,
@@ -516,7 +516,7 @@ minutes of time.::
      CONSTRAINT session_id_pkey PRIMARY KEY (session_id),
      CONSTRAINT last_activity_check CHECK (last_activity >= 0)
  );
- 
+
 Cron
 ----
 
@@ -524,7 +524,7 @@ A new cron script has been added called SignatureProductdims?.
 
 Enable 'scripts/startSignatureProductdims.py' to run nightly at
 1:05am. Please run the script once to ensure that it works and logs
-properly.  
+properly.
 
 The following config file will need to be copied from the .dist file::
 
@@ -540,7 +540,7 @@ syslogging.
 Configuration file changes:
 
 * Compare 'scripts/config/webapiconfig.py.dist' to
-  'scripts/config/webapiconfig.py' 
+  'scripts/config/webapiconfig.py'
 * the logger section no longer has the logFile parameters, they are
   replaced with syslog parameters.
 * New config parameters::
@@ -568,7 +568,7 @@ Webapp
 
 Add the config files for session.php and cookie.php::
 
- cp application/config/cookie.php-dist application/config/cookie.php 
+ cp application/config/cookie.php-dist application/config/cookie.php
  cp application/config/session.php-dist application/config/session.php
 
 ReCAPTCHA added.::
@@ -576,7 +576,7 @@ ReCAPTCHA added.::
  cp webapp-php/modules/recaptcha/config/recaptcha.php-dist webapp-php/application/config/recaptcha.php
 
 Edit recaptcha.php and add a valid domain, public, and private key
-obtained from http://recaptcha.net 
+obtained from http://recaptcha.net
 
 Edit 'webapp-php/application/config/config.php' and make sure
 $config'modules'? has MODPATH . 'recaptcha',
@@ -609,8 +609,8 @@ Run 'scripts/updateTopCrashesBySignature.py'. This will take a
 significant amount of time to complete (greater than 1 hour). It is
 used to backfill the hang_count and plugin_count values for each
 signature over the last 4 weeks.
- 
- 
+
+
 Socorro 1.7.4
 =============
 
@@ -663,7 +663,7 @@ this file has been broken into sections. Use the
 '.../scripts/config/commonconfig.py.dist' as a guide when upgrading to
 the new format. The 'NFS storage system' section may be omitted since
 we will not be using NFS. Use the same connection information that was
-used in the 1.6.X collector config for the HBase config parameters. 
+used in the 1.6.X collector config for the HBase config parameters.
 
 `Diff comparing commonconfig.py.dist v1.7 with previous versions
 <http://code.google.com/p/socorro/source/diff?spec=svn2141&old=1559&r=2122&format=side&path=%2Ftrunk%2Fscripts%2Fconfig%2Fcommonconfig.py.dist>`_
@@ -672,7 +672,7 @@ used in the 1.6.X collector config for the HBase config parameters.
 
 this file has been broken into sections. Use
 '.../scripts/config/collectorconfig.py.dist' as a guide to the
-rearrangement. 
+rearrangement.
 
 * a new import of the parameter 'crashStorageClass' has been added
 * a HBase section has been added
@@ -680,7 +680,7 @@ rearrangement.
    * a new parameter called 'useBackupNFSStorage' has been added.
    * the HBase section has a place for NFS backup file system
      parameters. These are required only if 'useBackupNFSStorage' has
-     been set to True.  
+     been set to True.
 * an NFS section has been added (may be disregarded) This is only for
   use if NFS is to be the primary crash storage mechanism
 
@@ -693,7 +693,7 @@ versions
 Use '.../scripts/config/processor.py.dist' as a guide. Several options
 have changed position within the file for better organization. It may
 be best to start with the .dist' file and use the existing config file
-as a guide to create a new one. 
+as a guide to create a new one.
 
 * the "import star" has been replaced with a section called imported config
 * a new import of the parameter 'crashStorageClass' has been added
@@ -705,7 +705,7 @@ as a guide to create a new one.
   system, the dump files are not stored in a file that
   minidump_stactwalk can read. This path will hold temporary dump files.
   The directory should be self cleaning, no old dumps should accumulate
-  there.    
+  there.
 * a future use parameter has been added to the Processor Local Config
   section called "updateInterval". It may be disregarded for this
   update
@@ -719,7 +719,7 @@ versions
 Please follow '.../scripts/config/monitorconfig.py.dist' as a guide.
 Several options have changed position within the file for better
 organization. It may be best to start with the .dist' file and use the
-existing config file as a guide to create a new one. 
+existing config file as a guide to create a new one.
 
 * the "import star" has been replaced with a section called "imported config"
 * a new import of the parameter 'crashStorageClass' has been added
@@ -741,7 +741,7 @@ a new service has been added called GetCrash?. Use
 * addition of NFS section (may be disregarded)
 * import of socorro.services.getCrash
 * addition of "crash.GetCrash?" to the servicesList
-* addition of "adubd.AduByDay200912?" to the serviceList 
+* addition of "adubd.AduByDay200912?" to the serviceList
 
 `Diff comparing webapiconfig.py.dist' v1.7 with previous
 versions
@@ -750,11 +750,11 @@ versions
 **hbaseresubmitconfig.py**
 
 Use '.../scripts/config/hbaseresubmitconfig.py.dist' as a guide. The
-changes include: 
+changes include:
 
 * the import location for the parameter, 'hbaseHost' has changed to commonconfig.py
 * the import location for the parameter, 'hbasePort' has changed to commonconfig.py
-* addition of a the new parameter 'hbaseTimeout' 
+* addition of a the new parameter 'hbaseTimeout'
 
 `Diff comparing hbaseresubmitconfig.py.dist' v1.7 with previous
 versions
@@ -772,7 +772,7 @@ there have been extensive changes to the codebase of Socorro
 
 **new Daily Crash Cron**
 
-1. Run scripts/startDailyCrash.py 
+1. Run scripts/startDailyCrash.py
 
 Make sure you have the same env as a cron job (PYTHONPATH, etc) and wait for it to complete before installing as a cron. DB permissions should have been granted in previous steps.
 
@@ -784,7 +784,7 @@ Make sure you have the same env as a cron job (PYTHONPATH, etc) and wait for it 
 * update to the latest version of the Socorro library
 * update to the latest version of the thirdparty library
 * update config as instructed above
-* restart collectors 
+* restart collectors
 
 **Processor**
 
@@ -793,14 +793,14 @@ Make sure you have the same env as a cron job (PYTHONPATH, etc) and wait for it 
 * update to the latest version of the thirdparty library
 * the script that starts the processor has changed, update '.../scripts/startProcessor.py
 * update config as instructed above
-* restart processors 
+* restart processors
 
 **Monitor**
 
 * update to the latest version of the Socorro library
 * update to the latest version of the thirdparty library
 * update config as instructed above
-* restart monitor 
+* restart monitor
 
 **Web Services**
 
@@ -817,7 +817,7 @@ Make sure you have the same env as a cron job (PYTHONPATH, etc) and wait for it 
 attach results to deployment bug
 
 Related info: https://bugzilla.mozilla.org/show_bug.cgi?id=567923
-staging bug for daily_crashes ADU daily code.  
+staging bug for daily_crashes ADU daily code.
 
 HBase upgrade
 -------------
@@ -838,13 +838,13 @@ HBase upgrade
 14. on master: sudo -u hadoop /usr/lib/hbase/bin/start-hbase.sh
 15. hbase org.jruby.Main set_meta_block_caching.rb
 16. Make schema changes (TODO link to schema file)
-17. on worker nodes: /etc/init.d/hbase-0.20-thrift start 
+17. on worker nodes: /etc/init.d/hbase-0.20-thrift start
 
 WebUI upgrade
 -------------
 
 1. Update the webapp code to the latest tag
-2. Purge caches 
+2. Purge caches
 
 **config/application.php**
 
@@ -860,13 +860,10 @@ Add the following lines to the application.php config file::
          'range_default_value' => 14,
          'range_default_unit' => 'days',
          'range_limit_value_in_days' => 120
-     ),    
+     ),
      'user' => array(
          'range_default_value' => 14,
          'range_default_unit' => 'days',
          'range_limit_value_in_days' => 30
      )
  );
- 
-  
- 

@@ -6,9 +6,9 @@ Overview
 ========
 
 The Socorro Crash Reporting system consists of two pieces, the Socorro
-Server and the Socorro UI. 
+Server and the Socorro UI.
 
-Socorro Server 
+Socorro Server
 --------------
 
 :ref:`server-chapter` is a Python API and a collection of applications and web
@@ -30,7 +30,7 @@ Socorro UI
 ----------
 
 :ref:`ui-chapter` is a Web application to access and analyze the database
-contents via search and generated reports. 
+contents via search and generated reports.
 
 
 Data Flow
@@ -49,13 +49,13 @@ Hadoop processing nodes. They accept tasks from map reduce jobs and
 employ the stackwalk_server? to convert crashes into json files stored
 back into HBase. Filtering through these converted crashes using the
 :ref:`throttling-chapter` rules initially applied by the
-:ref:`collector-chapter`. 
+:ref:`collector-chapter`.
 
 The SocorroUI allows developers to browse the crash information from
 the relational database. In addition to being able to examine specific
 individual crash reports, there are trend reports that show which
 crashes are the most common as well as the status of bugs about those
-crashes in Bugzilla. 
+crashes in Bugzilla.
 
 Next Steps:
 

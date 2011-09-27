@@ -14,7 +14,7 @@ problems within PostgreSQL. The 'dumps' tables took nearly eighty
 percent of the total storage, making replication and backup
 problematic. Since the 'dumps' table's data is used only when a user
 requests a specific crash dump by uuid, most of the data is rarely, if
-ever, accessed.          
+ever, accessed.
 
 We decided to migrate these dump into a file system storage outside
 the database. Details can be seen at: :ref:`dumpingdumptables-chapter`
@@ -22,7 +22,7 @@ the database. Details can be seen at: :ref:`dumpingdumptables-chapter`
 In the file system, after processing, dumps are stored a gzip
 compressed JSON file format. This format echos a flattening of the
 'reports', 'extensions' and the now deprecated 'dumps' tables within
-the database.   
+the database.
 
 Directory Structure
 -------------------
@@ -39,7 +39,7 @@ Most lookups of processed crash data happens by name. We use a radix
 storage technique where the first 4 characters of the file name are
 used for two levels of directory names. A file called
 aabbf9cb-395b-47e8-9600-4f20e2090331.jsonz would be found in the file
-system as .../aa/bb/aabbf9cb-395b-47e8-9600-4f20e2090331.jsonz    
+system as .../aa/bb/aabbf9cb-395b-47e8-9600-4f20e2090331.jsonz
 
 Access by Date
 --------------
@@ -47,7 +47,7 @@ Access by Date
 For the purposes of finding crashes that happened at specific date and
 time, a hierarchy of date directories offer quick lookup. The leaves
 of the date directories contain symbolic links to the locations of
-crash data.    
+crash data.
 
 JSON File Format
 ----------------
@@ -84,4 +84,4 @@ example::
 
 The "dump" component is the direct streamed output from the Breakpad
 "minidump_stackwalk" program. Unfortunately, that project does not
-give detailed documentation of the format. 
+give detailed documentation of the format.

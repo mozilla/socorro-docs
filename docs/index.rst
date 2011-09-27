@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Socorro 
+Socorro
 =======
 
 The current focus of Socorro development is to make a server which can
@@ -13,13 +13,13 @@ http://wiki.mozilla.org/Breakpad for more information.
 Socorro mailing list https://lists.mozilla.org/listinfo/tools-socorro
 
 `This documentation is available on Github`_, and if you want to, feel free to
-clone the repo, make some changes in a fork and send us a pull request. 
+clone the repo, make some changes in a fork and send us a pull request.
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-   
+
    overview
    collector
    processor
@@ -34,13 +34,12 @@ Contents:
    deployment
    development
    writingdocs
-   
+
 .. _`This documentation is available on Github`: https://github.com/mozilla/socorro
-   
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

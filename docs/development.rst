@@ -7,7 +7,8 @@ Development Discussions
 
 .. toctree::
    :maxdepth: 2
-   
+
+   codingconventions
    crashreprofilteringreport
    databasepartitioning
    diskperformancetests
@@ -15,6 +16,4 @@ Development Discussions
    jsondumpstorage
    processeddumpstorage
    reportdatabasedesign
-   codeanddatabaseupdate   
-
-
+   codeanddatabaseupdate

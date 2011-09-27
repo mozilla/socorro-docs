@@ -29,8 +29,8 @@ Socorro UI
    * Will use the report uuid to locate the dump on a file system
    * Will use apache mod-rewrite to serve the actual file. The rewrite
      rule is based on the uuid, and is 'simple':
-     AABBCCDDEEFFGGHHIIJJKKLLM2090308.jsonz => AA/BB/AABBCCDDEEFFGGHHIIJJKKLLM2090308.jsonz    
-   * report/index will include a link to JSON dump 
+     AABBCCDDEEFFGGHHIIJJKKLLM2090308.jsonz => AA/BB/AABBCCDDEEFFGGHHIIJJKKLLM2090308.jsonz
+   * report/index will include a link to JSON dump
 
       link rel='alternate' type='application/json' href='/reporter/dumps/cdaa07ae-475b-11dd-8dfa-001cc45a2ce4.jsonz'
 
@@ -39,12 +39,12 @@ Dump file format
 
 * Will be gzip compressed JSON encoded cooked dump files
 * Partial JSON file
-* Full JSONZ file 
+* Full JSONZ file
 
 On Disk Location
 ----------------
 
-    application.conf dumpPath Example for kahn $config'dumpPath'? = '/mnt/socorro_dumps/named'; 
+    application.conf dumpPath Example for kahn $config'dumpPath'? = '/mnt/socorro_dumps/named';
 
 In the dumps directory we will have an .htaccess file::
 
@@ -58,18 +58,18 @@ Webhead will serve these files as::
 
 **Note:* You'd expect the dump files to be named json.gz, but this is
 broken in Safari. By setting HTTP headers and naming the file jsonz,
-an unknown file extension, this works across browsers.   
+an unknown file extension, this works across browsers.
 
 Socorro UI
 ----------
 
 * Existing URL won't change.
-* Second JSON request back to server will load jsonz file 
+* Second JSON request back to server will load jsonz file
 
 Example:
 
 * http://crash-stats.mozilla.com/report/index/d92ebf79-9858-450d-9868-0fe042090211
-* http://crash-stats.mozilla.com/dump/d92ebf79-9858-450d-9868-0fe042090211.jsonz 
+* http://crash-stats.mozilla.com/dump/d92ebf79-9858-450d-9868-0fe042090211.jsonz
 
 mod rewrite rules will match /dump/.jsonz and change them to access a file share.
 
@@ -77,13 +77,13 @@ Future Enhancement
 ------------------
 
 A future enhancement if we find webheads are high CPU would be to move
-populating the report/index page to client side.    
+populating the report/index page to client side.
 
 Test Page
 ---------
 
 http://people.mozilla.org/~aking/Socorro/dumpingDump/json-test.html -
 Uses browser to decompress a gzip compressed JSON file during an AJAX
-request, pulls it apart and appends to the page.  
+request, pulls it apart and appends to the page.
 
 Test file made with gzip dump.json

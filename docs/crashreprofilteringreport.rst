@@ -51,12 +51,12 @@ items in the crash report like the full stack trace and/or module list::
   and   fliter  url?  contains   mail.google.com
   or    fliter   url? conttains  mail.yahoo.com
   and   filter   modulelist? does_not_contain  "mswsock.dll 5.1.2600.3394"
- 
+
 
 that last example of module list might be a stretch, but would be very
 valuable to check module list for existance or non-existance of binary
-components and their version numbers.    
+components and their version numbers.
 
 from there we would want to see the results and export to csv to
 import things like url lists into page load testing systems to look
-for reproducible crashers.   
+for reproducible crashers.
