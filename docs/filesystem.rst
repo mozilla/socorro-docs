@@ -10,5 +10,3 @@ Socorro uses two similar file system storage schemes in two distinct
 places within the system. Raw crash dumps from the field use a system
 called :ref:`jsondumpstorage-chapter` while at the other end, processed dumps use the
 :ref:`processeddumpstorage-chapter` scheme.
-
-Ignore this test. Peter testing the web interface of edit files. 
