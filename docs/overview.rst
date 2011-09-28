@@ -51,7 +51,7 @@ back into HBase. Filtering through these converted crashes using the
 :ref:`throttling-chapter` rules initially applied by the
 :ref:`collector-chapter`.
 
-The [[SocorroUI]] allows developers to browse the crash information from
+The :ref:`ui-chapter` allows developers to browse the crash information from
 the relational database. In addition to being able to examine specific
 individual crash reports, there are trend reports that show which
 crashes are the most common as well as the status of bugs about those

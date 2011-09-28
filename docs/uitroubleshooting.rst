@@ -36,4 +36,4 @@ Config Files
 ------------
 
 Ensure that the appropriate config files in webapp/application/config
-have been copied from `.php-dist` to `.php`
+have been copied from ``.php-dist`` to ``.php``

@@ -15,20 +15,20 @@ details of a crash
 **Crash Dump/Metadata pair** - shorthand for The pair of Raw Crash Dump
 and corresponding Raw Crash Metadata
 
-**DeferredJobStorage**: a file system location where Crash Dump/Metadata
+:ref:`deferredjobstorage-chapter`: a file system location where Crash Dump/Metadata
 pair are kept without being processed.
 
 **Dump File**: See Raw Crash Dump, don't use this term it makes me giggle
 
 **Job**: a job queue item for a Raw Crash Dump that needs to be processed
 
-**JsonDumpStorage**: the Python module that implements
-[[SocorroFileSystem]]
+:ref:`jsondumpstorage-chapter`: the Python module that implements
+:ref:`filesystem-chapter`
 
 **Materialized view**: the tables in the database containing the data for
 used in statistical analysis. Including: [[MeanTimeBeforeFailure]],
-[[TopCrashersBySignature]], [[TopCrashersByUrl]]. The "Trend Reports" from the
-[[SocorroUI]] display information from these tables.
+:ref:`topcrashersbysignature-chapter`, :ref:`topcrashersbyurl-chapter`. The "Trend Reports" from the
+:ref:`ui-chapter` display information from these tables.
 
 **Minidump**: see 'raw crash dump'
 
@@ -38,7 +38,7 @@ usable by developers. This application is invoked by
 :ref:`processor-chapter`.
 
 **Monitor**: the Socorro application in charge of queuing jobs. See
-[[SocorroMonitor]]
+:ref:`monitor-chapter`
 
 **OOID**: A crash report ID. Originally a 32bit value, the original legacy
 system stored it in the database as a hexidecimal text form. Each
@@ -49,7 +49,7 @@ recieved.
 historically a point of confusion and it is preferred that the term OS
 or Client OS be used instead.
 
-**ProcessedDumpStorage**: the disk location where the output files of the
+:ref:`processeddumpstorage-chapter`: the disk location where the output files of the
 minidump_stackwalk program are stored. The actual files are stored
 with a .jsonz extension.
 
@@ -72,24 +72,41 @@ version. The categories are: "major", "milestone", or "development".
 Within the database, an enum called ReleaseEnum? represents these
 categories.
 
-**Reporter**: another name for the [[SocorroUI]]
+**Reporter**: another name for the :ref:`ui-chapter`
 
 **Skip List**: lists of signature regular expressions used in generating a
 crash's overall signature in the :ref:`processor-chapter`. see
-SignatureGeneration
+:ref:`signaturegeneration-chapter`
 
-**StandardJobStorage**: a file system location where JSON/dump pairs are
+:ref:`standardjobstorage-chapter`: a file system location where JSON/dump pairs are
 kept for processing
 
 **Throttling**: statistically, we don't have to save every single crash.
 This option of the :ref:`collector-chapter` configuration allows us to
-selectively throw away dumps. See also:
-http://code.google.com/p/socorro/wiki/:ref:`collector-chapter`#throttleConditions
+selectively throw away dumps.
 
-**Trend Reports**: the pages in the [[SocorroUI]] that display the data from
+**Trend Reports**: the pages in the :ref:`ui-chapter` that display the data from
 the materialized views.
 
 **UUID**: a univeral unique identifier. Term is being deprecated in favor
 of OOID.
 
 **Web head**: a machine that runs :ref:`collector-chapter`
+
+
+.. toctree::
+   :maxdepth: 2
+
+   deferredjobstorage
+   jsondumpstorage
+   processeddumpstorage
+   standardjobstorage
+   topcrashersbyurl
+   topcrashersbysignature
+   signaturegeneration
+   crashmover
+   collector
+   reporter
+   monitor
+   filesystem
+   deferredcleanup

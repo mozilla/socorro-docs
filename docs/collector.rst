@@ -2,6 +2,7 @@
 
 .. _collector-chapter:
 
+
 Collector
 =========
 
@@ -20,7 +21,7 @@ storage mechanism. A second file system can be configured to take the
 failed saves. This file system would likely be an NFS mounted file
 system.
 
-After a crash is saved, there is an app called [[SocorroCrashMover]] that
+After a crash is saved, there is an app called :ref:`crashmover-chapter` that
 will transfer the crashes to HBase.
 
 
@@ -40,11 +41,11 @@ Like all the Socorro applications, the configuration is actually
 executable Python code. Two configuration files are relevant for
 collector
 
-* Copy `.../scripts/config/commonconfig.py.dist` to
+* Copy ``.../scripts/config/commonconfig.py.dist`` to
   `.../config/commonconfig.py`. This configuration file contains
   constants used by many of the Socorro applications.
-* Copy `.../scripts/config/collectorconfig.py.dist` to
-  `.../config/collectorconfig.py`
+* Copy ``.../scripts/config/collectorconfig.py.dist`` to
+  ``.../config/collectorconfig.py``
 
 Common Configuration
 --------------------
@@ -53,7 +54,7 @@ There are two constants in '.../scripts/config/commonconfig.py' of
 interest to collector: `jsonFileSuffix`, and `dumpFileSuffix`. Other
 constants in this file are ignored.
 
-To setup the common configuration, see [[SocorroCommonConfig]].
+To setup the common configuration, see :ref:`commonconfig-chapter`.
 
 Collector Configuration
 -----------------------

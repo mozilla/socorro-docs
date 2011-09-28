@@ -1,7 +1,7 @@
 .. Socorro documentation master file, created by
    sphinx-quickstart on Wed Sep 21 14:59:08 2011.
    You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+   contain the root ``toctree`` directive.
 
 Socorro
 =======
@@ -12,8 +12,9 @@ http://wiki.mozilla.org/Breakpad for more information.
 
 Socorro mailing list https://lists.mozilla.org/listinfo/tools-socorro
 
-`This documentation is available on Github`_, and if you want to, feel free to
-clone the repo, make some changes in a fork and send us a pull request.
+`This documentation is available on Github
+<https://github.com/mozilla/socorro-docs>`_, and if you want to, feel
+free to  clone the repo, make some changes in a fork and send us a pull request.
 
 Contents:
 
@@ -35,7 +36,6 @@ Contents:
    development
    writingdocs
 
-.. _`This documentation is available on Github`: https://github.com/mozilla/socorro
 
 Indices and tables
 ==================

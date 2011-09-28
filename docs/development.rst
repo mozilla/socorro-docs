@@ -22,3 +22,5 @@ Development Discussions
    databaseschema
    package
    schema
+   databasesetup
+   commonconfig

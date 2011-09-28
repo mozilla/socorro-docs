@@ -3,7 +3,7 @@
 .. _upgrade-chapter:
 
 
-
+=======
 Upgrade
 =======
 
@@ -214,7 +214,7 @@ configuration file in the system.
 commonconfig.py
 ---------------
 
-See [[SocorroCommonConfig]] for details
+See :ref:`commonconfig-chapter` for details
 
 Configuration file changes:
 
@@ -259,7 +259,7 @@ newCrashMover
 This is a new app that replaces the hbaseResubmit.py from the previous
 releases in this series.
 
-For information regarding the configuration, see [[SocorroCrashMover]].
+For information regarding the configuration, see :ref:`crashmover-chapter`.
 
 Monitor
 -------

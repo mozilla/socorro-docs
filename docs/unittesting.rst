@@ -23,7 +23,7 @@ How to Unit Test
         ERROR: testCopyFromGid (socorro.unittest.lib.testJsonDumpStorageGid.TestJsonDumpStorageGid)
         ERROR: testNewEntryGid (socorro.unittest.lib.testJsonDumpStorageGid.TestJsonDumpStorageGid)
 
-* You may 'observe' the result by chanting `nosetests > test.out 2>&1`
+* You may 'observe' the result by chanting ``nosetests > test.out 2>&1``
   and then examining test.out (or any name you prefer)
 * There is a bash shell file: socorro/unittest/red which may sourced
   to provide a bash function red that simplifies watching test
@@ -61,7 +61,7 @@ directory looking for tests.
 How to configure your test environment
 --------------------------------------
 
-* You must have a working postgresql installation see [[Requirements]] for
+* You must have a working postgresql installation see :ref:`requirements-chapter` for
   version. It need not be locally hosted, though if not, please be
   careful about username and password for the test user. Also be careful
   not to step on a working database: The test cleanup code drops tables.
@@ -73,8 +73,8 @@ How to configure your test environment
   commonconfig, as exemplified in the existing config files.
 * You must provide a a database appropriate for the test user
   (default: test. That database must support PLPGSQL. As the owner of
-  the test database, while connected to that database, invoke `CREATE
-  LANGUAGE PLPGSQL;`
+  the test database, while connected to that database, invoke ``CREATE
+  LANGUAGE PLPGSQL;``
 * You must have installed `nose and nosetests
   <http://code.google.com/p/python-nose/>`_; nosetests should be on
   your PATH and the nose code/egg should be on your PYTHONPATH
@@ -82,5 +82,5 @@ How to configure your test environment
   module
 * You must adjust your PYTHONPATH to include the directory holding
   soccoro. E.g if you have installed socorro at
-  `/home/tester/Mozilla/socorro` then your PYTHONPATH should look like
-  `...:/home/tester/Mozilla:/home/tester/Mozilla/thirdparty:...`
+  ``/home/tester/Mozilla/socorro`` then your PYTHONPATH should look like
+  ``...:/home/tester/Mozilla:/home/tester/Mozilla/thirdparty:...``

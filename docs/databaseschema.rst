@@ -15,7 +15,7 @@ extensions. Making a database-neutral API has been explored, and for
 now is not being pursued.
 
 Most of the obvious and easy improvements suggested in
-SocorroCodeAndDatabaseUpdate have been implemented. Where not done, we
+[[SocorroCodeAndDatabaseUpdate]] have been implemented. Where not done, we
 made a conscious decision to keep:
 
 * tables with varchar rather than text, when the tables are partitionedx

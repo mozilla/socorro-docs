@@ -44,11 +44,11 @@ We use the file system storage for incoming dumps caught by
 different purposes: standard storage and deferred storage.
 
 
-[[StandardJobStorage]]
-----------------------
+:ref:`standardjobstorage-chapter`
+---------------------------------
 
 This is where json/dump pairs are stored for further processing. The
-[[SocorroMonitor]] finds new dumps and queues them for processing. It does
+:ref:`monitor-chapter` finds new dumps and queues them for processing. It does
 this by walking the date branch of the file system using the API
 function destructiveDateWalk. As it moves through the date branch, it
 notes every uuid (in the form of a symbolic link) that it encounters.
@@ -61,12 +61,12 @@ In the case of priority processing, the target uuid is looked up
 directly on the name branch. Then the link to the date branch is used
 to locate and delete the link on the date branch. This insures that a
 priority job is not found a second time as a new job by the
-[[SocorroMonitor]].
+:ref:`monitor-chapter`.
 
-[[DeferredJobStorage]]
-----------------------
+:ref:`deferredjobstorage-chapter`
+---------------------------------
 
-This is where jobs go that are deferred by [[SocorroMonitor]]'s throttling
+This is where jobs go that are deferred by :ref:`monitor-chapter`'s throttling
 mechanism. If a json/dump pair is needed for priority processing, it
 can be looked up directly on the name branch. In such a case, just as
 with priority jobs in standard storage, we destroy the links between
@@ -83,12 +83,12 @@ the elderly json/dump pairs.
 class JsonDumpStorage
 ---------------------
 
-`socorro.lib.JsonDumpStorage` holds data and implements methods for
+``socorro.lib.JsonDumpStorage`` holds data and implements methods for
 creating and accessing crash files.
 
 **public methods**
 
-* `__init__(self, root=".", maxDirectoryEntries=1024, **kwargs)`
+* ``__init__(self, root=".", maxDirectoryEntries=1024, **kwargs)``
 
   Take note of our root directory, maximum allowed date->name links per directory, some relative relations, and whatever else we may need. Much of this (c|sh)ould be read from a config file.
 
@@ -102,7 +102,7 @@ creating and accessing crash files.
         * dirPermissions. Default 770
         * dumpGID. Default None. If None, then owned by the owner of the running script.
 
-* `newEntry (self, uuid, webheadHostName='webhead01', timestamp=DT.datetime.now())`
+* ``newEntry (self, uuid, webheadHostName='webhead01', timestamp=DT.datetime.now())``
 
     Sets up the name and date storage for the given uuid.
 
@@ -112,19 +112,19 @@ creating and accessing crash files.
           * the name branch link pointing to the date branch directory holding that link.
       * Returns a 2-tuple containing files open for writing: (jsonfile,dumpfile)
 
-* `getJson (self, uuid)`
+* ``getJson (self, uuid)``
 
     Returns an absolute pathname for the json file for a given uuid. Raises OSError if the file is missing
 
-* `getDump (self, uuid)`
+* ``getDump (self, uuid)``
 
     Returns an absolute pathname for the dump file for a given uuid. Raises OSError if the file is missing
 
-* `markAsSeen (self,uuid)`
+* ``markAsSeen (self,uuid)``
 
     Removes the links associated with the two data files for this uuid, thus marking them as seen. Quietly returns if the uuid has no associated links.
 
-* `destructiveDateWalk (self)`
+* ``destructiveDateWalk (self)``
 
     This function is a generator that yields all(see note) uuids found by walking the date branch of the file system.
 
@@ -133,20 +133,20 @@ creating and accessing crash files.
         Since the file system may be manipulated in a different thread, if no .json or .dump file is found, the links are left, and we do not yield that uuid
         note To avoid race conditions, does not visit the date subdirectory corresponding to the current time
 
-* `remove (self, uuid)`
+* ``remove (self, uuid)``
 
     Removes all instances of the uuid from the file system including the json file, the dump file, and the two links if they still exist.
 
        * Ignores missing link, json and dump files: You may call it with bogus data, though of course you should not
 
-* `move (self, uuid, newAbsolutePath)`
+* ``move (self, uuid, newAbsolutePath)``
 
     Moves the json file then the dump file to newAbsolutePath.
 
         * Removes associated symbolic links if they still exist.
         * Raises IOError if either the json or dump file for the uuid is not found, and retains any links, but does not roll back the json file if the dump file is not found.
 
-* `removeOlderThan (self, timestamp)`
+* ``removeOlderThan (self, timestamp)``
 
       * Walks the date branch removing all entries strictly older than the timestamp.
       * Removes the corresponding entries in the name branch.

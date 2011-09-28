@@ -9,21 +9,22 @@ Report Database Design
 Introduction
 ------------
 
-
-With the launch of MeanTimeBeforeFailure and TopCrashersByUrl reports, we have added 8 new database tables. The call into the following categories:
+With the launch of [[MeanTimeBeforeFailure]] and :ref:`topcrashersbyurl-chapter`
+reports, we have added 8 new database tables. The call into the
+following categories:
 
 * configuration
-    * mtbfconfig
-    * tcbyurlconfig
+   * mtbfconfig
+   * tcbyurlconfig
 * facts
-    * mtbffacts
-    * topcrashurlfacts
+   * mtbffacts
+   * topcrashurlfacts
 * dimensions
-    * productdims
-    * urldims
-    * signaturedims
+   * productdims
+   * urldims
+   * signaturedims
 * relational
-    * topcrashurlfactsreports
+   * topcrashurlfactsreports
 
 What relational? Aren't they all?
 
@@ -43,7 +44,6 @@ Star schemas are optimized for:
 * viewed from different levels of granularity
 
 
-
 Pattern
 -------
 
@@ -61,9 +61,9 @@ different levels of granularity. Example::
 
 Sample values
 
-* en-us.www.mozilla.com, ALL
-* http://en-us.www.mozilla.com/en-US/firefox/3.0.5/whatsnew/
-* en-us.www.mozilla.com, http://en-us.www.mozilla.com/en-US/firefox/features/
+1. en-us.www.mozilla.com, ALL
+2. http://en-us.www.mozilla.com/en-US/firefox/3.0.5/whatsnew/
+3. en-us.www.mozilla.com, http://en-us.www.mozilla.com/en-US/firefox/features/
 
 We see a dimension that describes the property "url". This is useful
 for talking about crashes that happen on a specific url. We also see
@@ -79,8 +79,8 @@ dimension as their are no requirements to roll it up ( say to Q1
 crashes, etc) and having it be a column in the facts table provides
 better performance.
 
-facts
------
+
+**facts**
 
 For a given report it will be powered by a main facts table.
 
@@ -100,8 +100,7 @@ count and the rank respective to others facts. So if we have static
 values for all dimensions and day, then we can see who has the most
 crashes.
 
-Reporting
----------
+**Reporting**
 
 The general pattern of creating a report is for a series of static and
 1 or two variable dimensions, display the facts that meet this
