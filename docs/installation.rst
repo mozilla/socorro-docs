@@ -6,6 +6,11 @@
 Installation
 ============
 
+* Get the code - https://github.com/mozilla/socorro
+* Read the INSTALL file https://github.com/mozilla/socorro/blob/master/INSTALL#L1
+
+FIXME review the below older documentation, and either merge or remove:
+
 Upgrading? See :ref:`upgrade-chapter`
 
 * setup a file system available through NFS (or whatever). All
