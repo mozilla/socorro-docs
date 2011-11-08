@@ -24,6 +24,7 @@ Contents:
    overview
    collector
    processor
+   middleware
    ui
    requirements
    installation
