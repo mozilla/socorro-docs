@@ -36,30 +36,3 @@ for the Socorro UI coding standards.
 * All important files, such as controllers, models and libraries,
   must have the Mozilla Public License at the top of the file.
 
-Code Review
------------
-
-* Minor fixes or tweaks do not require code reviews.
-* All other fixes require code review.
-* Code review patches should be created and attached the bug
-  ticket in Bugzilla.
-  Method:
-
-    1. Complete the code
-    2. Generate a patch with svn diff::
-
-          svn diff > {bugzilla_id}_{i}.diff
-
-    3. Attach your patch to the bug ticket.
-    4. Assign another developer on your team
-       to download and apply the patch in his / her sandbox. The
-       reviewing developer will apply the patch with svn patch::
-
-         patch -p0 -i {bugzilla_id}_{i}.diff
-
-    5.
-      a. If the developer approves the patch, commit the code to
-         subversion.
-      b. If the developer does not approve the patch, the
-         developer will make recommendations for completing the patch.
-         Start over at step 1.
