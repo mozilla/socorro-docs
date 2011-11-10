@@ -2,6 +2,11 @@
 
 .. _databasepartitioning-chapter:
 
+Historical File
+===============
+
+The contents of this file are historical in nature and do not reflect
+the current database design.
 
 Database Partitioning
 =====================
