@@ -2,6 +2,12 @@
 
 .. _databaseschema-chapter:
 
+Out-of-Date Data Warning
+========================
+
+While portions of this doc are still relevant and interesting for
+current socorro usage, be aware that it is extremely out of date
+when compared to current schema.
 
 Database Schema
 ===============
@@ -13,13 +19,6 @@ Socorro is married to the PostgreSQL database: It makes use of a
 significant number of PostrgeSQL and psycopg2 (python) features and
 extensions. Making a database-neutral API has been explored, and for
 now is not being pursued.
-
-Most of the obvious and easy improvements suggested in
-[[SocorroCodeAndDatabaseUpdate]] have been implemented. Where not done, we
-made a conscious decision to keep:
-
-* tables with varchar rather than text, when the tables are partitionedx
-* tables that seemed to have no need for maintenance
 
 The tables can be divided into three major categories: crash data,
 aggregate reporting and process control.
