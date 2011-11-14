@@ -61,7 +61,7 @@ directory looking for tests.
 How to configure your test environment
 --------------------------------------
 
-* You must have a working postgresql installation see :ref:`requirements-chapter` for
+* You must have a working postgresql installation see :ref:`installation-chapter` for
   version. It need not be locally hosted, though if not, please be
   careful about username and password for the test user. Also be careful
   not to step on a working database: The test cleanup code drops tables.

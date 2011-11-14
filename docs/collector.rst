@@ -24,16 +24,6 @@ system.
 After a crash is saved, there is an app called :ref:`crashmover-chapter` that
 will transfer the crashes to HBase.
 
-
-Server Requirements
--------------------
-
-* Apache 2.x
-* Python 2.4
-* mod-python
-* python simplejson package
-* socorro package installed
-
 Collector Python Configuration
 ------------------------------
 
