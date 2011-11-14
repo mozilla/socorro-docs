@@ -28,7 +28,6 @@ Contents:
    ui
    requirements
    installation
-   upgrade
    uiinstallation
    uitroubleshooting
    server
