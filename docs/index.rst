@@ -22,12 +22,12 @@ Contents:
    :maxdepth: 2
 
    overview
+   installation
    collector
    processor
    middleware
    ui
    requirements
-   installation
    uiinstallation
    uitroubleshooting
    server
