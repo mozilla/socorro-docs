@@ -10,6 +10,7 @@ Development Discussions
 
    codingconventions
    glossary
+   standalone
    unittesting
    crashreprofilteringreport
    databasepartitioning
